@@ -46,6 +46,7 @@ class Spider(scrapy.Spider):
             description = response.css('#ContentPlaceHolder1_litLead .News_Lead::text').get()
 
         yield {
+            'id': response.url.split("/")[5],
             'service': response.css('.Top_Menu_On::text').get(),
             'datetime': date_time,
             'title': response.css('h1 div.News_Title::text').get(),
@@ -100,9 +101,20 @@ def execute_spider(date_from=None, date_to=None):
     if not os.path.isdir(files_dir):
         os.makedirs(files_dir)
 
+    feeds_file_path = "%s%s.json" % (files_dir, file_name)
+
     process = CrawlerProcess(settings={
-        'FEED_FORMAT': 'json',
-        'FEED_URI': "%s%s.json" % (files_dir, file_name)
+        # 'FEED_FORMAT': 'json',
+        # 'FEED_URI': feeds_file_path,
+        'FEEDS': {
+            feeds_file_path: {
+                'format': 'json',
+                'encoding': 'utf8',
+                'store_empty': False,
+                'fields': None,
+                'indent': 4,
+            }
+        }
     })
 
     process.crawl(Spider, date_from, date_to)
