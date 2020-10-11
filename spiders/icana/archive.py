@@ -104,8 +104,6 @@ def execute_spider(date_from=None, date_to=None):
     feeds_file_path = "%s%s.json" % (files_dir, file_name)
 
     process = CrawlerProcess(settings={
-        # 'FEED_FORMAT': 'json',
-        # 'FEED_URI': feeds_file_path,
         'FEEDS': {
             feeds_file_path: {
                 'format': 'json',

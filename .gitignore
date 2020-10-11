@@ -1,3 +1,4 @@
-crawled_files
-/crawled_files
+crawled_files/
 crawled_files/*
+
+.idea/
