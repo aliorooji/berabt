@@ -51,7 +51,7 @@ class Spider(scrapy.Spider):
             'datetime': date_time,
             'title': response.css('h1 div.News_Title::text').get(),
             'description': description,
-            'paragraphs': response.css('#ContentPlaceHolder1_litBody p *::text').getall(),
+            'newsBody': response.css('#ContentPlaceHolder1_litBody .News_Body').get(),
             'tags': response.css('#ContentPlaceHolder1_ucTag_Box a::attr(href)').getall(),
         }
 
